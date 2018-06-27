@@ -21,7 +21,8 @@ module Warden
       def authenticate!
         user = UserDecoder.new.call(token, scope)
         success!(user)
-      rescue JWT::DecodeError
+      rescue JWT::DecodeError => exception
+        Warden::JWTAuth.config.logger.error(exception.message) if Warden::JWTAuth.config.logger
         fail!
       end
 

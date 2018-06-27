@@ -29,5 +29,15 @@ describe Warden::JWTAuth::UserDecoder do
         described_class.new.call(token, :unknown)
       end.to raise_error(Warden::JWTAuth::Errors::WrongScope)
     end
+
+    context 'when scope is not specified' do
+      let(:token_payload) { Warden::JWTAuth::UserEncoder.new.call(user, nil, 'aud') }
+
+      it 'returns encoded user' do
+        expect(
+          described_class.new.call(token, :user)
+        ).to eq(user)
+      end
+    end
   end
 end

@@ -25,6 +25,9 @@ module Warden
     # Expiration time for tokens
     setting :expiration_time, 3600
 
+    # Logger object for recording failures
+    setting :logger
+
     # A hash of warden scopes as keys and user repositories as values.
     #
     # @see Interfaces::UserRepository
